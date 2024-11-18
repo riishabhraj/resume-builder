@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs');
-const puppeteer = require('puppeteer'); 
+const puppeteer = require('puppeteer');
 const pdfTemplate = require('./documents');
 const cors = require('cors')
 
@@ -15,10 +15,11 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));  // Going one level up from 'api' to 'client'
 
+// For any other route, send the index.html from the build folder
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
 // Endpoint to generate the PDF
